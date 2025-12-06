@@ -1,0 +1,308 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()  --不能改
+local Window = WindUI:CreateWindow({
+    Title = "WX<font color='#00FF00'>脚本</font>", --换成你的脚本名
+    Icon = "rbxassetid://81944629903864",
+    IconTransparency = 0.5,
+    IconThemed = true,
+    Author = "公告", --介绍
+    Folder = "CloudHub",
+size=UDim2.fromOffset(400，300)，
+透明=真，
+主题="黑暗"，
+用户={
+enabled=true，
+callback=函数()print("clicked")结束，
+匿名=false
+    },
+SidebarWidth=200，
+ScrollBarEnabled=true，
+background="rbxassetid://99587042675299"--图片iD
+})
+
+窗口：EditOpenButton({
+title="WX脚本"，
+icon="监视器"，
+角半径=UDim.new(0，16)，
+行程厚度=2，
+color=openButtonColor，
+可拖动=真，
+})
+窗口：标记({
+title="版本V1"，
+    Color = Color3.fromHex("#30ff6a")
+})
+Window:Tag({
+    Title = "永久免费",
+    Color = Color3.fromHex("#315dff")
+})
+local TimeTag = Window:Tag({
+    Title = "支持云更",
+    Color = Color3.fromHex("#000000")
+})
+local TabHandles = {
+WX1=窗口：选项卡({Title="公告区域"，图标="布局网格"})，
+WX2=窗口：选项卡({Title="通用功能"，图标="布局网格"})，
+WX3=Window:Tab({Title="透视"，icon="layout-grid"})，
+WX4=Window:Tab({Title="自瞄"，icon="layout-grid"})，
+WX5=窗口：制表符({Title="99night🌲"，Icon="layout-grid"})，
+WX6=窗口：选项卡({Title="忍者传奇🌈"，Icon="layout-grid"})，
+WX7=窗口：选项卡({Title="其余脚本包括脚本中心"，图标="布局网格"})，
+wx8=窗口：选项卡({Title="ui颜色设置"，图标="画笔"})
+}
+局部段落=TabHandles.WX1：段落({
+title="欢迎使用WX脚本"，
+DESC="寒脚本是一个刚出道不久的脚本"，
+image="rbxassetid://81944629903864"，
+imagesize=42，
+thumbnail="rbxassetid://87911816470809"，
+ThumbnailSize=120，
+})
+局部段落=TabHandles.WX1：段落({
+title="当你执行了主脚本"，
+DESC="那么你已经同意了玩家封号我们概不负责！"，
+    ImageSize = 42,
+    ThumbnailSize = 120,
+})
+--你的群号
+local Paragraph = TabHandles.WX1:Paragraph({
+    Title = "复制主群",
+    Desc = "QQ主群:1071851583",
+    Buttons = {{
+        Title = "复制",
+        Icon = "copy",
+        Variant = "Primary",
+        Callback = function()
+            setclipboard("1071851583")
+            local Sound = Instance.new("Sound", game:GetService("SoundService"))
+            Sound.SoundId = "rbxassetid://138820873376530"
+            Sound:Play()
+            WindUI:Notify({
+                Title = "WX脚本：",
+                Content = "已成功复制！",
+                Icon = "bell",
+                IconThemed = true,
+                Duration = 5
+            })
+        end
+    }}
+})
+--不能关的功能
+Button = TabHandles.WX2:Button({
+    Title = "无限跳",
+    Desc = "无限功能",
+    Locked = false,
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/V5PQy3y0", true))
+        
+        WindUI:Notify({
+            Title = "WX脚本",
+            Content = "加载成功",
+            Duration = 3,
+            Icon = "layout-grid",
+        })        
+    end
+})
+ --开关功能能关闭
+Toggle = TabHandles.WX2:Toggle({
+    Title = "开关功能", 
+    Value = false, 
+    Callback = function(Value)
+        if Value then
+            game.Lighting.Ambient = Color3.new(1, 1, 1)
+        else
+            game.Lighting.Ambient = Color3.new(0, 0, 0)
+        end
+        WindUI:Notify({
+            Title = "寒脚本",
+            Content = Value and "已开启" or "已关闭",
+            Duration = 3,
+            Icon = "layout-grid",
+        })
+    end
+})
+Slider = TabHandles.WX2:Slider({
+    Title = "滑块功能",
+    Value = {
+        Min = 0.0,
+        Max = 1000.0,
+        Default = 196.2,
+    },
+    Step = 0.1,
+    Callback = function(value)
+        game.Workspace.Gravity = value
+    end
+})
+local Button = TabHandles.WX8:Button({
+    Title = "自定义界面",
+    Desc = "个性化您的体验",
+    Image = "palette",
+    ImageSize = 20,
+    Color = "White"
+})
+local themes = {}
+for themeName, _ in pairs(WindUI:GetThemes()) do
+    table.insert(themes, themeName)
+end
+table.sort(themes)
+local themeDropdown = TabHandles.WX8:Dropdown({
+    Title = "主题选择",
+    Values = themes,
+    Value = "Dark",
+    Callback = function(theme)
+        WindUI:SetTheme(theme)
+        WindUI:Notify({
+            Title = "WX脚本",
+            Content = "已应用"..theme.."主题",
+            Icon = "palette",
+            Duration = 2
+        })
+    end
+})
+local transparencySlider = TabHandles.WX8:Slider({
+    Title = "界面透明度",
+    Value = { 
+        Min = 0,
+        Max = 1,
+        Default = 0.2,
+    },
+    Step = 0.1,
+    Callback = function(value)
+        Window:ToggleTransparency(tonumber(value) > 0)
+        WindUI.TransparencyValue = tonumber(value)
+    end
+})
+TabHandles.WX8:Toggle({
+    Title = "启用白色主题",
+    Desc = "使用白色调主题方案",
+    Value = true,
+    Callback = function(state)
+        WindUI:SetTheme(state and "Light" or "Dark")
+        themeDropdown:Select(state and "Light" or "Dark")
+        WindUI:Notify({
+            Title = "WX脚本",
+            Content = state and "已启用白色主题" or "已启用黑色主题",
+            Duration = 2,
+            Icon = "palette"
+        })
+    end
+})
+TabHandles.WX8:Button({
+    Title = "创建新主题",
+    Icon = "plus",
+    Callback = function()
+        Window:Dialog({
+            Title = "创建主题",
+            Content = "此功能很快就会推出",
+            Buttons = {
+                {
+                    Title = "确认",
+                    Variant = "Primary"
+                }
+            }
+        })
+    end
+})
+TabHandles.WX8:Paragraph({
+    Title = "配置管理",
+    Desc = "保存你的设置",
+    Image = "save",
+    ImageSize = 20,
+    Color = "White"
+})
+local configName = "default"
+local configFile = nil
+local MyPlayerData = {
+    name = "Player1",
+    level = 1,
+    inventory = { "sword", "shield", "potion" }
+}
+TabHandles.WX8:Input({
+    Title = "配置名称",
+    Value = configName,
+    Callback = function(value)
+        configName = value
+    end
+})
+local ConfigManager = Window.ConfigManager
+if ConfigManager then
+    ConfigManager:Init(Window)
+    
+    TabHandles.WX8:Button({
+        Title = "保存配置",
+        Icon = "save",
+        Variant = "Primary",
+        Callback = function()
+            configFile = ConfigManager:CreateConfig(configName)
+            
+            configFile:Register("featureToggle", Toggle)
+            configFile:Register("intensitySlider", Slider)
+            configFile:Register("modeDropdown", themeDropdown)
+            configFile:Register("themeDropdown", themeDropdown)
+            configFile:Register("transparencySlider", transparencySlider)
+            
+            configFile:Set("playerData", MyPlayerData)
+            configFile:Set("lastSave", os.date("%Y-%m-%d %H:%M:%S"))
+            
+            if configFile:Save() then
+variant="Primary"
+标题="保存配置"，
+内容="保存为："..configName，
+图标="检查"，
+结束
+})
+TabHandles.WX8：段落({
+标题="配置管理"，
+DESC="保存你的设置"，
+图像="保存"，
+图像大小=20，
+颜色="白色"
+})
+本地configName="默认"
+本地configfile=nil
+本机MyPlayerData={
+name="Player1"，
+级别=1，
+库存={"剑"，"盾"，"药水"}
+回调=函数()
+configfile=ConfigManager:CreateConfig(configName)
+窗口：EditOpenButton({
+title="WX脚本"，
+图标="监视器"，
+角半径=UDim.new(0，16)，
+行程厚度=2，
+color=openButtonColor，
+可拖动=真，
+本地lastSave=loadedData.lastSave或“未知”
+窗口：标记({
+标题="版本V1"，
+color=Color3.fromHex("#30ff6a")
+title="WX<font color='#00FF00'>脚本</font>"，--换成你的脚本名
+窗口：标记({
+标题="永久免费"，
+color=Color3.fromHex("#315dff")
+作者="公告"，--介绍
+本地TimeTag=窗口：标记({
+标题="支持云更"，
+color=Color3.fromHex("#000000")
+MyPlayerData.level，
+本地TabHandles={
+})
+其他
+WindUI：通知({
+标题="错误"，
+内容="加载失败"，
+图标="x"，
+持续时间=3
+})
+结束
+结束
+})
+其他
+TabHandles.WX8：段落({
+标题="配置管理不可用"，
+DESC="此功能需要配置管理"，
+image="alert-triangle"，
+图像大小=20，
+颜色="白色"
+})
+结束
